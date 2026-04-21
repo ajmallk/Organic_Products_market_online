@@ -1,0 +1,40 @@
+# ─── Python / Django ───────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+*.so
+*.sqlite3
+*.log
+
+# Virtual environments
+venv/
+.env
+.venv
+env/
+
+# Django media uploads (user-uploaded files, not source code)
+backend/media/
+
+# Django migrations (optional: keep if you want schema history)
+# backend/api/migrations/
+
+# ─── Node / React (frontend) ───────────────────────────────────────────
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+frontend/.env.production
+
+# ─── OS / Editor junk ──────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+*.orig
