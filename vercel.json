@@ -33,4 +33,7 @@
   ],
   "outputDirectory": "build"
 }
+{
+  "outputDirectory": ".next"
+}
 
