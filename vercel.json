@@ -2,12 +2,8 @@
   "version": 2,
   "builds": [
     {
-      "src": "backend/manage.py",
-      "use": "@vercel/python",
-      "config": {
-        "maxLambdaSize": "15mb",
-        "runtime": "python3.11"
-      }
+      "src": "backend/api/index.py",
+      "use": "@vercel/python"
     },
     {
       "src": "frontend/package.json",
@@ -19,24 +15,19 @@
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "backend/manage.py"
+      "src": "^/api/(.*)",
+      "dest": "backend/api/index.py"
     },
     {
-      "src": "/admin/(.*)",
-      "dest": "backend/manage.py"
+      "src": "^/admin/(.*)",
+      "dest": "backend/api/index.py"
     },
     {
-      "src": "/media/(.*)",
-      "dest": "backend/manage.py"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "frontend/$1"
+      "src": "^(.*)$",
+      "dest": "/frontend/dist/$1"
     }
   ],
   "env": {
-    "DJANGO_SETTINGS_MODULE": "backend.settings",
-    "PYTHONPATH": "backend"
+    "DJANGO_SETTINGS_MODULE": "backend.settings"
   }
 }
