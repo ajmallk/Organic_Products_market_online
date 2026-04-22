@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 from datetime import timedelta
 from decouple import config, Csv
 
@@ -47,6 +48,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # WhiteNoise must come directly after SecurityMiddleware
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -77,13 +80,22 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
+# ─────────────────────────────────────────────────────────────
+# Reads DATABASE_URL from the environment (.env locally, Vercel
+# env vars in production).  Set it to your Supabase connection
+# string on Vercel; keep it as sqlite:///db.sqlite3 locally.
+# ─────────────────────────────────────────────────────────────
+_DATABASE_URL = config(
+    'DATABASE_URL',
+    default=f'sqlite:///{BASE_DIR / "db.sqlite3"}'
+)
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.parse(
+        _DATABASE_URL,
+        conn_max_age=600,          # keep DB connections alive (pools)
+        conn_health_checks=True,   # drop broken connections automatically
+    )
 }
 
 
@@ -122,6 +134,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+# STATIC_ROOT is required by `collectstatic` and WhiteNoise on Vercel
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# WhiteNoise: serve compressed & cached static files
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -155,3 +171,17 @@ SIMPLE_JWT = {
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
     'TOKEN_TYPE_CLAIM': 'token_type',
 }
+
+# ─────────────────────────────────────────────────────────────
+# Production security settings (only active when DEBUG=False)
+# ─────────────────────────────────────────────────────────────
+if not DEBUG:
+    SECURE_SSL_REDIRECT          = True   # Redirect HTTP → HTTPS
+    SECURE_HSTS_SECONDS          = 31536000  # 1 year HSTS
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD          = True
+    SESSION_COOKIE_SECURE        = True   # Only send session cookie over HTTPS
+    CSRF_COOKIE_SECURE           = True   # Only send CSRF cookie over HTTPS
+    SECURE_BROWSER_XSS_FILTER    = True
+    SECURE_CONTENT_TYPE_NOSNIFF  = True
+
