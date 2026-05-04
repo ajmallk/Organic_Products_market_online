@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # ─────────────────────────────────────────────────────────────
 _DATABASE_URL = config(
     'DATABASE_URL',
-    default=f'sqlite:///{BASE_DIR / "db.sqlite3"}'
+    default='postgresql://postgres:mydatabase%40%40673@db.wovzawqadsejqxgmeamv.supabase.co:5432/postgres'
 )
 
 DATABASES = {
