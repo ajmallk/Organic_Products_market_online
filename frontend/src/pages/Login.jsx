@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Form, Button, Card } from 'react-bootstrap';
+import { Form, Button, Card, Container, Row, Col } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 
@@ -22,29 +22,34 @@ function Login() {
     };
 
     return (
-        <div className="row justify-content-center mt-5">
-            <div className="col-md-5">
-                <Card className="p-4 shadow-sm">
-                    <h3 className="mb-4 text-center">Welcome Back</h3>
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group className="mb-3" controlId="username">
-                            <Form.Label>Username</Form.Label>
-                            <Form.Control type="text" name="username" placeholder="Enter username" required />
-                        </Form.Group>
-                        <Form.Group className="mb-4" controlId="password">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" name="password" placeholder="Password" required />
-                        </Form.Group>
-                        <Button variant="primary" type="submit" className="w-100 mb-3">
-                            Login
-                        </Button>
-                        <div className="text-center">
-                            Don't have an account? <Link to="/register">Register here</Link>
+        <Container className="mt-5">
+            <Row className="justify-content-center">
+                <Col xs={12} sm={10} md={6} lg={4}>
+                    <Card className="p-4 shadow-sm border-0 rounded-4">
+                        <div className="text-center mb-4">
+                            <h3 className="fw-bold">Welcome Back</h3>
+                            <p className="text-muted">Login to your organic account</p>
                         </div>
-                    </Form>
-                </Card>
-            </div>
-        </div>
+                        <Form onSubmit={handleSubmit}>
+                            <Form.Group className="mb-3" controlId="username">
+                                <Form.Label>Username</Form.Label>
+                                <Form.Control type="text" name="username" placeholder="Enter username" required className="rounded-3" />
+                            </Form.Group>
+                            <Form.Group className="mb-4" controlId="password">
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control type="password" name="password" placeholder="Password" required className="rounded-3" />
+                            </Form.Group>
+                            <Button variant="primary" type="submit" className="w-100 mb-3 py-2 rounded-3 fw-semibold">
+                                Login
+                            </Button>
+                            <div className="text-center small">
+                                Don't have an account? <Link to="/register" className="text-organic fw-bold text-decoration-none">Register here</Link>
+                            </div>
+                        </Form>
+                    </Card>
+                </Col>
+            </Row>
+        </Container>
     );
 }
 

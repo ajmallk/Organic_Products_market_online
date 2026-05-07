@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Form, Button, Card, Alert } from 'react-bootstrap';
+import { Form, Button, Card, Alert, Container, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from '../context/AuthContext';
@@ -51,39 +51,54 @@ function SellProduct() {
     };
 
     return (
-        <div className="row justify-content-center">
-            <div className="col-md-8">
-                <Card className="p-4 shadow-sm">
-                    <h3 className="mb-4">Sell Organic Product</h3>
-                    {error && <Alert variant="danger">{error}</Alert>}
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group className="mb-3">
-                            <Form.Label>Product Name</Form.Label>
-                            <Form.Control type="text" name="name" onChange={handleChange} required />
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Form.Label>Product Image</Form.Label>
-                            <Form.Control type="file" name="image" accept="image/*" onChange={handleChange} />
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Form.Label>WhatsApp Number</Form.Label>
-                            <Form.Control type="text" name="whatsapp_number" placeholder="e.g., +1234567890" onChange={handleChange} required />
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Form.Label>Location</Form.Label>
-                            <Form.Control type="text" name="location" onChange={handleChange} required />
-                        </Form.Group>
-                        <Form.Group className="mb-4">
-                            <Form.Label>Description</Form.Label>
-                            <Form.Control as="textarea" rows={4} name="description" onChange={handleChange} required />
-                        </Form.Group>
-                        <Button variant="primary" type="submit" className="w-100">
-                            List Product
-                        </Button>
-                    </Form>
-                </Card>
-            </div>
-        </div>
+        <Container className="my-5">
+            <Row className="justify-content-center">
+                <Col xs={12} md={10} lg={8}>
+                    <Card className="p-4 shadow-sm border-0 rounded-4">
+                        <div className="mb-4">
+                            <h3 className="fw-bold">Sell Organic Product</h3>
+                            <p className="text-muted">List your fresh product for the community</p>
+                        </div>
+                        {error && <Alert variant="danger" className="rounded-3">{error}</Alert>}
+                        <Form onSubmit={handleSubmit}>
+                            <Row>
+                                <Col md={6}>
+                                    <Form.Group className="mb-3">
+                                        <Form.Label className="fw-semibold">Product Name</Form.Label>
+                                        <Form.Control type="text" name="name" placeholder="e.g. Fresh Tomatoes" onChange={handleChange} required className="rounded-3" />
+                                    </Form.Group>
+                                </Col>
+                                <Col md={6}>
+                                    <Form.Group className="mb-3">
+                                        <Form.Label className="fw-semibold">WhatsApp Number</Form.Label>
+                                        <Form.Control type="text" name="whatsapp_number" placeholder="e.g. +1234567890" onChange={handleChange} required className="rounded-3" />
+                                    </Form.Group>
+                                </Col>
+                            </Row>
+                            
+                            <Form.Group className="mb-3">
+                                <Form.Label className="fw-semibold">Location</Form.Label>
+                                <Form.Control type="text" name="location" placeholder="Where is it available?" onChange={handleChange} required className="rounded-3" />
+                            </Form.Group>
+
+                            <Form.Group className="mb-3">
+                                <Form.Label className="fw-semibold">Product Image</Form.Label>
+                                <Form.Control type="file" name="image" accept="image/*" onChange={handleChange} className="rounded-3" />
+                            </Form.Group>
+
+                            <Form.Group className="mb-4">
+                                <Form.Label className="fw-semibold">Description</Form.Label>
+                                <Form.Control as="textarea" rows={4} name="description" placeholder="Describe the quality, quantity, and price..." onChange={handleChange} required className="rounded-3" />
+                            </Form.Group>
+                            
+                            <Button variant="primary" type="submit" className="w-100 py-2 rounded-3 fw-semibold">
+                                List Product
+                            </Button>
+                        </Form>
+                    </Card>
+                </Col>
+            </Row>
+        </Container>
     );
 }
 

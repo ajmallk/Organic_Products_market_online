@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { Container } from 'react-bootstrap';
 import NavigationBar from './components/Navbar';
 import Footer from './components/Footer';
 import PrivateRoute from './components/PrivateRoute';
@@ -15,7 +16,7 @@ function App() {
     <Router>
       <AuthProvider>
         <NavigationBar />
-        <main className="container my-4">
+        <Container as="main" className="flex-grow-1">
           <Routes>
             {/* ── Public routes: accessible without login ── */}
             <Route path="/login"    element={<Login />} />
@@ -35,7 +36,7 @@ function App() {
               <PrivateRoute><Contact /></PrivateRoute>
             } />
           </Routes>
-        </main>
+        </Container>
         <Footer />
       </AuthProvider>
     </Router>

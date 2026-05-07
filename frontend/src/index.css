@@ -1,9 +1,16 @@
-/* Minimalist modern theme with prominent footer */
+/* Minimalist modern theme with responsive support */
+:root {
+    --organic-green: #198754;
+    --organic-dark: #1a1e21;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 body {
-    background-color: #f8f9fa;
-    color: #212529;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: #f4f7f5;
+    color: #2d3436;
+    font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
     margin: 0;
+    -webkit-font-smoothing: antialiased;
 }
 
 #root {
@@ -14,10 +21,20 @@ body {
 
 main {
     flex: 1;
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+}
+
+/* Responsive Container padding */
+@media (max-width: 576px) {
+    .container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 }
 
 .footer {
-    background-color: #1a1e21;
+    background-color: var(--organic-dark);
     color: #f8f9fa;
     padding: 4rem 0;
     margin-top: auto;
@@ -25,31 +42,61 @@ main {
 
 .card {
     border: none;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    transition: var(--transition);
+    border-radius: 16px;
     overflow: hidden;
+    background: white;
 }
 
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.btn {
+    padding: 0.6rem 1.5rem;
+    transition: var(--transition);
 }
 
 .btn-primary {
-    background-color: #198754;
-    border-color: #198754;
+    background-color: var(--organic-green);
+    border-color: var(--organic-green);
 }
 
 .btn-primary:hover {
     background-color: #157347;
     border-color: #146c43;
+    transform: scale(1.02);
 }
 
 .text-organic {
-    color: #198754 !important;
+    color: var(--organic-green) !important;
 }
 
-.hover-white:hover {
-    color: white !important;
+.navbar-brand {
+    letter-spacing: -0.5px;
+}
+
+/* Form focus effects */
+.form-control:focus {
+    border-color: var(--organic-green);
+    box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.1);
+}
+
+@media (max-width: 991px) {
+    .navbar-collapse {
+        padding-top: 1.5rem;
+    }
+    .navbar-nav .nav-link {
+        padding: 0.8rem 0;
+        border-bottom: 1px solid #eee;
+    }
+}
+
+/* Utilities for mobile-first d-flex */
+.flex-sm-row {
+    @media (max-width: 576px) {
+        flex-direction: column !important;
+    }
 }
