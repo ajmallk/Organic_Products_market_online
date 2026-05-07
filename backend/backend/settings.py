@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # ─────────────────────────────────────────────────────────────
 _DATABASE_URL = config(
     'DATABASE_URL',
-    default='postgresql://postgres:kerala=-wayanad@db.xwdzpowmklzwjcbenynt.supabase.co:5432/postgres'
+    default='postgresql://postgres:kerala+-wayanad@db.xwdzpowmklzwjcbenynt.supabase.co:5432/postgres'
 )
 
 DATABASES = {
