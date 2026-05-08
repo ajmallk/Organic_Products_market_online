@@ -9,4 +9,4 @@ python-decouple
 whitenoise
 gunicorn
 uvicorn
-connects
+
