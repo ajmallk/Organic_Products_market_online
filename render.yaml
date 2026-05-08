@@ -7,6 +7,7 @@ services:
     buildCommand: ./build.sh
     startCommand: gunicorn backend.wsgi:application --chdir backend
     envVars:
+      - port:8000
       - key: PYTHON_VERSION
         value: 3.10.12
       - key: DEBUG
