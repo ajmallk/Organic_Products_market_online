@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Form, Button, Card, Alert, Container, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api';
 import AuthContext from '../context/AuthContext';
 
 function SellProduct() {
@@ -37,10 +37,9 @@ function SellProduct() {
         }
 
         try {
-            await axios.post('http://127.0.0.1:8000/api/products/', uploadData, {
+            await api.post('/products/', uploadData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${authTokens.access}`
                 }
             });
             navigate('/');

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Card, Alert, Container, Row, Col } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api';
 
 function Register() {
     const navigate = useNavigate();
@@ -19,7 +19,7 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://127.0.0.1:8000/api/register/', formData);
+            await api.post('/register/', formData);
             navigate('/login');
         } catch (err) {
             setError('Error registering. Please try again with different credentials.');

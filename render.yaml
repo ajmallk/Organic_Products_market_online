@@ -1,0 +1,44 @@
+services:
+  # Backend Service
+  - type: web
+    name: organic-product-backend
+    env: python
+    buildCommand: ./build.sh
+    startCommand: gunicorn backend.wsgi:application --chdir backend
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.12
+      - key: DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALLOWED_HOSTS
+        value: "*"
+      - key: DATABASE_URL
+        sync: false # Set this in Render Dashboard to your Supabase connection string
+      - key: JWT_ACCESS_TOKEN_LIFETIME_DAYS
+        value: "1"
+      - key: JWT_REFRESH_TOKEN_LIFETIME_DAYS
+        value: "7"
+
+  # Frontend Service (Static Site)
+  - type: static
+    name: organic-product-frontend
+    env: static
+    buildCommand: cd frontend && npm install && npm run build
+    publishPath: frontend/dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://organic-product-backend.onrender.com/api # Replace with your actual backend URL after first deploy
+      - key: VITE_SUPABASE_URL
+        sync: false
+      - key: VITE_SUPABASE_ANON_KEY
+        sync: false
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-cache
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

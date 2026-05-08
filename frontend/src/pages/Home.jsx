@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api';
 
 function Home() {
     const [products, setProducts] = useState([]);
@@ -9,7 +9,7 @@ function Home() {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/products/');
+                const response = await api.get('/products/');
                 setProducts(response.data);
             } catch (error) {
                 console.error("Error fetching products", error);
