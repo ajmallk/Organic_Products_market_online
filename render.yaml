@@ -5,7 +5,7 @@ services:
     name: organic-product-backend
     env: python
     buildCommand: ./build.sh
-    startCommand: gunicorn backend.wsgi:application --chdir backend
+    startCommand: gunicorn backend.wsgi:application --bind 0.0.0.0:$PORT
     envVars:
       - port:8000
       - key: PYTHON_VERSION
