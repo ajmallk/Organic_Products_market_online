@@ -26,7 +26,6 @@ services:
     name: organic-product-frontend
     env: static
     buildCommand: cd frontend && npm install && npm run build
-    publishPath: frontend/dist
     envVars:
       - key: VITE_API_URL
         value: https://organic-product-backend.onrender.com/api # Replace with your actual backend URL after first deploy
