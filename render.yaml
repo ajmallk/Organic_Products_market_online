@@ -22,7 +22,7 @@ services:
         value: "7"
 
   # Frontend Service (Static Site)
-  - type: static
+  - type: web
     name: organic-product-frontend
     env: static
     buildCommand: cd frontend && npm install && npm run build
