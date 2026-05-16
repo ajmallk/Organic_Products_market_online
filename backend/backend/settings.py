@@ -98,6 +98,12 @@ DATABASES = {
     )
 }
 
+# If using SQLite, ensure the path is absolute relative to BASE_DIR
+if DATABASES['default']['ENGINE'] == 'django.db.backends.sqlite3':
+    db_path = DATABASES['default']['NAME']
+    if not os.path.isabs(db_path):
+        DATABASES['default']['NAME'] = os.path.join(BASE_DIR, db_path)
+
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
