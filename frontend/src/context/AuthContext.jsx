@@ -12,22 +12,40 @@ export const AuthProvider = ({ children }) => {
     
     let loginUser = async (e) => {
         e.preventDefault();
-        let response = await fetch(`${API_BASE_URL}/login/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({'username': e.target.username.value, 'password': e.target.password.value})
-        });
-        let data = await response.json();
+        try {
+            let response = await fetch(`${API_BASE_URL}/login/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({'username': e.target.username.value, 'password': e.target.password.value})
+            });
 
-        if (response.status === 200) {
-            setAuthTokens(data);
-            setUser(jwtDecode(data.access));
-            localStorage.setItem('authTokens', JSON.stringify(data));
-            return true;
-        } else {
-            alert('Invalid credentials!');
+            if (response.status === 200) {
+                let data = await response.json();
+                setAuthTokens(data);
+                setUser(jwtDecode(data.access));
+                localStorage.setItem('authTokens', JSON.stringify(data));
+                return true;
+            } else {
+                let errorMessage = 'Invalid credentials!';
+                try {
+                    const contentType = response.headers.get('content-type');
+                    if (contentType && contentType.includes('application/json')) {
+                        let errorData = await response.json();
+                        if (errorData.detail) {
+                            errorMessage = errorData.detail;
+                        }
+                    }
+                } catch (parseError) {
+                    console.error("Failed to parse login error JSON:", parseError);
+                }
+                alert(errorMessage);
+                return false;
+            }
+        } catch (error) {
+            console.error("Login connection error:", error);
+            alert('Unable to connect to the server. Please try again.');
             return false;
         }
     };

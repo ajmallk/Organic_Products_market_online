@@ -1,14 +1,10 @@
 import axios from 'axios';
 
-const isLocalhost = typeof window !== 'undefined' && 
-  (window.location.hostname === 'localhost' || 
-   window.location.hostname === '127.0.0.1' || 
-   window.location.hostname.startsWith('192.168.'));
-
-export const API_BASE_URL = import.meta.env.VITE_API_URL || (isLocalhost ? 'http://127.0.0.1:8000/api' : '/api');
+export const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
+  withCredentials: true,
 });
 
 // Add a request interceptor to include the JWT token in every request
