@@ -80,29 +80,18 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 
 # Database
-# ─────────────────────────────────────────────────────────────
-# Reads DATABASE_URL from the environment (.env locally, Vercel
-# env vars in production).  Set it to your Supabase connection
-# string on Vercel; keep it as sqlite:///db.sqlite3 locally.
-# ─────────────────────────────────────────────────────────────
-_DATABASE_URL = config(
-    'DATABASE_URL',
-    default='postgresql://postgres:kerala+-wayanad@db.xwdzpowmklzwjcbenynt.supabase.co:5432/postgres'
-)
+# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.parse(
-        _DATABASE_URL,
-        conn_max_age=600,          # keep DB connections alive (pools)
-        conn_health_checks=True,   # drop broken connections automatically
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'myprojectdb',
+        'USER': 'postgres',      # Updated from 'postgresql' to 'postgres' to match standard local installations
+        'PASSWORD': '673123',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
-
-# If using SQLite, ensure the path is absolute relative to BASE_DIR
-if DATABASES['default']['ENGINE'] == 'django.db.backends.sqlite3':
-    db_path = DATABASES['default']['NAME']
-    if not os.path.isabs(db_path):
-        DATABASES['default']['NAME'] = os.path.join(BASE_DIR, db_path)
 
 
 # Password validation
