@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Card, Alert, Container, Row, Col } from 'react-bootstrap';
+import api from '../utils/api';
 
 function Contact() {
     const [formData, setFormData] = useState({
@@ -22,13 +23,9 @@ function Contact() {
         setStatus(null);
 
         try {
-            const response = await fetch('http://localhost:8000/api/contact/', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
-            });
+            const response = await api.post('/contact/', formData);
 
-            if (response.ok) {
+            if (response.status === 200 || response.status === 201) {
                 setFormData({ name: '', email: '', subject: '', message: '' });
                 setStatus('success');
             } else {

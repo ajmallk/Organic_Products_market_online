@@ -1,5 +1,6 @@
 import { createContext, useState } from 'react';
 import { jwtDecode } from "jwt-decode";
+import { API_BASE_URL } from '../utils/api';
 
 const AuthContext = createContext();
 
@@ -11,8 +12,7 @@ export const AuthProvider = ({ children }) => {
     
     let loginUser = async (e) => {
         e.preventDefault();
-        const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/api';
-        let response = await fetch(`${apiUrl}/login/`, {
+        let response = await fetch(`${API_BASE_URL}/login/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
