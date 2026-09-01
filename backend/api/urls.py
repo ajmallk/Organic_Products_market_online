@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import RegisterView, ProductListCreateView, ProductDetailView, ContactMessageCreateView
+from api.views import RegisterView, ProductListCreateView, ProductDetailView, ContactMessageCreateView
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
