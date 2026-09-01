@@ -31,7 +31,11 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-e8e*_#mza*=m#=l80dr_k
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='organic-products-market-online.onrender.com,localhost,127.0.0.1,*.vercel.app,*.render.com', cast=Csv())
+ALLOWED_HOSTS = [
+    'organic-products-market-online.onrender.com',
+    'organic-products-market-online.vercel.app',
+    'localhost'
+]
 
 
 # Application definition
