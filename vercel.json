@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "buildCommand": "cd frontend && npm install && npm run build",
-  "outputDirectory": "frontend/dist",
+  "buildCommand": "npm install && npm run build",
+  "outputDirectory": "dist",
   "rewrites": [
     {
       "source": "/api/:match*",
-      "destination": "https://organic-products-market-online.onrender.com/api/:match*"
+      "destination": "YOUR_EXISTING_BACKEND_URL/api/:match*"
     },
     {
       "source": "/(.*)",
