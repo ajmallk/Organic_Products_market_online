@@ -1,12 +1,19 @@
 from django.contrib import admin
+from django.http import JsonResponse
 from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
+
+
+def home(request):
+    return JsonResponse({
+        "status": "success",
+        "message": "Organic Products API is running"
+    })
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('api.urls')),
-]
+    path("", home, name="home"),
+    path("admin/", admin.site.urls),
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # Your API
+    path("api/", include("api.urls")),
+]
