@@ -155,7 +155,12 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:5173',
     'http://localhost:3000',
     'http://127.0.0.1:3000',
-    'https://organic-products-market-online.vercel.app',
+
+    'https://organic-products-market-online-2ynwe1cjk-ajmallks-projects.vercel.app',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://organic-products-market-online-2ynwe1cjk-ajmallks-projects.vercel.app',
 ]
 
 # Dynamically load additional origins from environment variables (e.g. from Vercel env settings)
