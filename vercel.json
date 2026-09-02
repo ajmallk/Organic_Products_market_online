@@ -5,7 +5,7 @@
   "rewrites": [
     {
       "source": "/api/:match*",
-      "destination": "https://organic-products-market-online.onrender.com//api/:match*"
+      "destination": "https://organic-products-market-online.onrender.com/api/:match*"
     },
     {
       "source": "/(.*)",
