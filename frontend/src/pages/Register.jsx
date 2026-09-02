@@ -19,7 +19,7 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await api.post('/register/', formData);
+            await api.post('register/', formData);
             navigate('/login');
         } catch (err) {
             setError('Error registering. Please try again with different credentials.');
