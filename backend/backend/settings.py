@@ -146,23 +146,31 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CORS credentials configuration
+# CORS credentials configuration
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS = False
 
-# Explicit list of allowed origins (CORS_ALLOW_ALL_ORIGINS must be False when CORS_ALLOW_CREDENTIALS is True)
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
     'http://127.0.0.1:5173',
     'http://localhost:3000',
     'http://127.0.0.1:3000',
-
     'https://organic-products-market-online-2ynwe1cjk-ajmallks-projects.vercel.app',
 ]
+
+# Additional origins from environment variable
+CORS_ALLOWED_ORIGINS_ENV = config(
+    'CORS_ALLOWED_ORIGINS',
+    default='',
+    cast=Csv()
+)
+
+if CORS_ALLOWED_ORIGINS_ENV:
+    CORS_ALLOWED_ORIGINS.extend(CORS_ALLOWED_ORIGINS_ENV)
 
 CSRF_TRUSTED_ORIGINS = [
     'https://organic-products-market-online-2ynwe1cjk-ajmallks-projects.vercel.app',
 ]
-
 # Dynamically load additional origins from environment variables (e.g. from Vercel env settings)
 CORS_ALLOWED_ORIGINS_ENV = config('CORS_ALLOWED_ORIGINS', default='', cast=Csv())
 if CORS_ALLOWED_ORIGINS_ENV:
